@@ -22,7 +22,7 @@ public class GetPointServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
+		 
 		final String driverName = "com.mysql.cj.jdbc.Driver";
 		final String url = "jdbc:mysql://192.168.54.190/jsonkadai09";
 		final String id = "jsonkadai09";
