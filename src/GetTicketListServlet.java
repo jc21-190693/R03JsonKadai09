@@ -30,8 +30,14 @@ public class GetTicketListServlet extends HttpServlet {
 		final String pass = "JsonKadai09";
 		
 		try {
-			String shop = "10";
+			/*
+			String shop = "500";
 			String user = "ka";
+			*/
+			
+			String shop =request.getParameter("shopId");
+			String user =request.getParameter("userId");
+			
 			
 			Class.forName(driverName);
 			Connection connection=DriverManager.getConnection(url,id,pass);
@@ -46,9 +52,11 @@ public class GetTicketListServlet extends HttpServlet {
 			List<String[]> list = new ArrayList<>();
 			while( result.next() == true) {
 				String[] s = new String[3];
-				s[0]=result.getString("ticket_id");
+				s[0]=Integer.toString(result.getInt("ticket_id"));
 				s[1]=result.getString("ticket_name");
-				s[2]=result.getString("ns_point");
+				s[2]=Integer.toString(result.getInt("ns_point"));
+				
+				System.out.println(s[0] + s[1] + s[2]);
 				list.add(s);
 			}
 			request.setAttribute("list", list);
