@@ -29,13 +29,13 @@ public class GetPointServlet extends HttpServlet {
 		final String pass = "JsonKadai09";
 		
 		try {
-			/*
+			
 			String shopid = "10";
 			String userid = "ka";
-			*/
+			/*
 			String shopid =request.getParameter("shopId");
 			String userid =request.getParameter("userId");
-			
+			*/
 			int point = 30;	//初回ポイント数
 			
 			Class.forName(driverName);
