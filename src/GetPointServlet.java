@@ -29,23 +29,26 @@ public class GetPointServlet extends HttpServlet {
 		final String pass = "JsonKadai09";
 		
 		try {
-			String shopid = "10100001";//request.getParameter("watanabbe");
-			String userid = "wa"; //request.getParameter("ABCD");
-			int point = 20202020;	//初回ポイント数
+			/*
+			String shopid = "500";
+			String userid = "ka";
+			*/
+			String shopid =request.getParameter("shopId");
+			String userid =request.getParameter("userId");
+			
+			int point = 500;	//初回ポイント数
 			
 			Class.forName(driverName);
 			Connection connection=DriverManager.getConnection(url,id,pass);
 			
-			
-			//PreparedStatement st = connection.prepareStatement("INSERT IGNORE point set tenpo_id= ?, user_id=?, point=?");
 			PreparedStatement st = connection.prepareStatement("INSERT IGNORE point set tenpo_id= ?, user_id=?, point=?");
 			st.setString(1, shopid);
 			st.setString(2, userid);
 			st.setInt(3, point);
-			//st.setString(4, shopid);
-			//st.setString(5, userid);
 			
-			st.execute();
+			//PreparedStatement st = connection.prepareStatement("insert into point(tenpo_id, user_id, point) select * from(select tenpo_id as tenpo, shop_id as shop, point) as tmp where not exist(select * from point where 
+			
+			st.executeUpdate();
 						
 						
 			PreparedStatement stmt = connection.prepareStatement("SELECT point FROM point WHERE tenpo_id = ? AND user_id = ?");
@@ -55,14 +58,13 @@ public class GetPointServlet extends HttpServlet {
 			ResultSet result = stmt.executeQuery();
 					
 			while( result.next() == true) {
-				shopid = result.getString("point");
+				point = result.getInt("point");
 			}
-			System.out.println(shopid);
+			System.out.println(point);
 			
-			
-			
+			request.setAttribute("point", point);
 			request.getRequestDispatcher("/WEB-INF/jsp/getPoint.jsp").forward(request, response);
-			request.setAttribute("point", point);			
+						
 
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
